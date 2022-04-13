@@ -3,26 +3,29 @@
 // If you're using ESLint on your project, we recommend installing the ESLint Cypress plugin instead:
 // https://github.com/cypress-io/eslint-plugin-cypress
 
-const antData = {
-  ants: [
-    { name: 'Marie ‘Ant’oinette', length: 12, color: 'BLACK', weight: 2 },
-    { name: 'Flamin’ Pincers', length: 11, color: 'RED', weight: 2 },
-    { name: 'AuNT Sarathi', length: 20, color: 'BLACK', weight: 5 },
-    {
-      name: 'The Unbeareable Lightness of Being',
-      length: 5,
-      color: 'SILVER',
-      weight: 1,
-    },
-    { name: '‘The Duke’', length: 17, color: 'RED', weight: 3 },
-  ],
-}
+import { AntList } from "../../components/types/ant-list";
+
+const antData: AntList = [
+  { name: 'Marie ‘Ant’oinette', length: 12, color: 'BLACK', weight: 2 },
+  { name: 'Flamin’ Pincers', length: 11, color: 'RED', weight: 2 },
+  { name: 'AuNT Sarathi', length: 20, color: 'BLACK', weight: 5 },
+  {
+    name: 'The Unbeareable Lightness of Being',
+    length: 5,
+    color: 'SILVER',
+    weight: 1,
+  },
+  { name: '‘The Duke’', length: 17, color: 'RED', weight: 3 },
+];
 
 describe('app', () => {
   describe('ant-race', () => {
     it('loads ant data when user clicks button', () => {
       // setup
-      cy.intercept('GET', '/api/ants')
+      cy.intercept('GET', '/api/ants', {
+        statusCode: 200,
+        body: antData
+      })
       cy.visit('http://localhost:3000/')
 
       // when user clicks on button to load ant data
