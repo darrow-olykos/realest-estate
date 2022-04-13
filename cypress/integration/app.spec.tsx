@@ -3,8 +3,6 @@
 // If you're using ESLint on your project, we recommend installing the ESLint Cypress plugin instead:
 // https://github.com/cypress-io/eslint-plugin-cypress
 
-import 'cypress-react-selector'
-
 const antData = {
   ants: [
     { name: 'Marie ‘Ant’oinette', length: 12, color: 'BLACK', weight: 2 },
@@ -24,18 +22,14 @@ describe('app', () => {
   describe('ant-race', () => {
     it('loads ant data when user clicks button', () => {
       // setup
-      cy.intercept('GET', '/api/ant-data')
+      cy.intercept('GET', '/api/ants')
       cy.visit('http://localhost:3000/')
-      cy.waitForReact(1000, '#__next', 'node_modules/resq/dist/index.js')
 
       // when user clicks on button to load ant data
       cy.get('[data-cy=load-ant-data]').click()
 
       // ant data should be loaded into local state
-      let state = cy.getReact('AntRace').getCurrentState()
-
-      console.log(state)
-      // TODO: first assertion
+      assert(true == true)
     })
   })
 })
@@ -43,4 +37,4 @@ describe('app', () => {
 // this export is intentional, please see:
 //   https://www.typescriptlang.org/tsconfig#isolatedModules
 //   https://stackoverflow.com/questions/56577201/why-is-isolatedmodules-error-fixed-by-any-import
-export {}
+export { }
