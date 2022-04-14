@@ -27,20 +27,38 @@ export const AntRace = () => {
     }
   }
 
+  function generateAntWinLikelihoodCalculator() {
+    const delay = 7000 + Math.random() * 7000;
+    const likelihoodOfAntWinning = Math.random();
+
+    return (callback) => {
+      setTimeout(() => {
+        callback(likelihoodOfAntWinning);
+      }, delay);
+    };
+  }
+
   return (
     <div className="ant-race">
       {loadingAnts ? "loading ants..." : ""}
       <button data-cy="load-ant-data" onClick={loadState}>Load Ants</button>
-      <button data-cy="start-calculations" onClick={loadState}>Start Race</button>
-      {antsLoaded ? (
-        <div>
-          <ul>
-            {ants.map(ant => <li>{ant.name}</li>)}
-          </ul>
-        </div>
-      ) : (
-        <p>No ants found, please try again</p>
-      )}
-    </div>
+      <button data-cy="start-calculations" disabled={!antsLoaded}>Start Race</button>
+      {
+        antsLoaded ? (
+          <div>
+            <ul>
+              {ants.map(ant => <li>
+                <div>{ant.name}</div>
+                <div data-cy='ant-win-chance-state'>
+                  {/* TODO: ant component */}
+                </div>
+              </li>)}
+            </ul>
+          </div>
+        ) : (
+          <p>No ants found, please try again</p>
+        )
+      }
+    </div >
   )
 }

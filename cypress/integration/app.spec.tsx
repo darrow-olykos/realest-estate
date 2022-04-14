@@ -3,36 +3,57 @@
 // If you're using ESLint on your project, we recommend installing the ESLint Cypress plugin instead:
 // https://github.com/cypress-io/eslint-plugin-cypress
 
-import { AntList } from "../../components/types/ant-list";
+import { AntList } from "../../components/types/ant-list"
 
-const antData: AntList = [
-  { name: 'Marie ‘Ant’oinette', length: 12, color: 'BLACK', weight: 2 },
-  { name: 'Flamin’ Pincers', length: 11, color: 'RED', weight: 2 },
-  { name: 'AuNT Sarathi', length: 20, color: 'BLACK', weight: 5 },
-  {
-    name: 'The Unbeareable Lightness of Being',
-    length: 5,
-    color: 'SILVER',
-    weight: 1,
-  },
-  { name: '‘The Duke’', length: 17, color: 'RED', weight: 3 },
-];
-
+/**
+ * Intent: Test app behavior, try to avoid testing implementation details
+ */
 describe('app', () => {
+
+  const selectors = {
+    LOAD_ANT_DATA: '[data-cy=load-ant-data]',
+    ANT_WIN_CHANCE_STATE: '[data-cy=ant-win-chance-state]',
+    START_CALCULATIONS: '[data-cy=start-calculations]'
+  }
+
   describe('ant-race', () => {
-    it('loads ant data when user clicks button', () => {
-      // setup
-      cy.intercept('GET', '/api/ants', {
-        statusCode: 200,
-        body: antData
-      })
+    it('user must be able to tap a button that loads the ant data', () => {
+      // stub network response, visit home page
+      cy.intercept('GET', '/api/ants', { fixture: 'ant-data.json' }).as('loadAntData')
       cy.visit('http://localhost:3000/')
 
-      // when user clicks on button to load ant data
-      cy.get('[data-cy=load-ant-data]').click()
+      // user taps (load data) button
+      cy.get(selectors.LOAD_ANT_DATA).should('be.visible').and('be.enabled')
+      cy.get(selectors.LOAD_ANT_DATA).click()
 
-      // ant data should be loaded into local state
-      assert(true == true)
+      // network request to load data should be made
+      cy.wait('@loadAntData').its('response').should('exist')
+
+      cy.get(selectors.START_CALCULATIONS).should('be.visible').and('be.enabled')
+
+    })
+  })
+
+  describe('when data has been fetched', () => {
+    it('when data has been fetched, ui must reflect the state of each ant\'s win likelihood calculation (not yet run, in progress, calculated, etc.).', () => {
+      // stub network response, visit home page
+      cy.intercept('GET', '/api/ants', { fixture: 'ant-data.json' }).as('loadAntData')
+      cy.visit('http://localhost:3000/')
+
+      // when data has been fetched
+      cy.get(selectors.LOAD_ANT_DATA).should('be.visible').and('be.enabled')
+      cy.get(selectors.LOAD_ANT_DATA).click()
+      cy.wait('@loadAntData').its('response').should('exist')
+
+      // before starting calculations
+      cy.get(selectors.START_CALCULATIONS).should('be.visible').and('be.enabled')
+      cy.get(selectors.ANT_WIN_CHANCE_STATE).each(el => { expect(el).to.have.text('Not yet run') })
+
+      // immediately following starting, (calculations on all ants should run simultaneously is an of this behavior implementation detail)
+      cy.get(selectors.START_CALCULATIONS).click()
+      cy.get(selectors.ANT_WIN_CHANCE_STATE).each(el => { expect(el).to.have.text('in progress') })
+
+      cy.get(selectors.ANT_WIN_CHANCE_STATE).each(el => { expect(el).to.have.text('calculated') })
     })
   })
 })
