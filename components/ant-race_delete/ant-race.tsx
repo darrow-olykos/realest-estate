@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { AntList } from './types/ant-list'
+import { AntWithWinChanceStateList, withWinChanceState } from './types/ant'
 
 export const AntRace = () => {
-  const [ants, setAnts] = useState<AntList>([])
+  const [ants, setAnts] = useState<AntWithWinChanceStateList>([])
   const [antsLoaded, setAntsLoaded] = useState(false)
   const [loadingAnts, setLoadingAnts] = useState(false)
 
@@ -17,12 +17,12 @@ export const AntRace = () => {
     }
   }
 
-  const loadState = async () => {
+  const loadAntData = async () => {
     setLoadingAnts(true);
     setAntsLoaded(false)
     let res = await fetchAnts()
     if (res.success) {
-      setAnts(res.data)
+      setAnts(res.data.map(ant => withWinChanceState(ant)))
       setAntsLoaded(true)
     }
   }
@@ -41,7 +41,7 @@ export const AntRace = () => {
   return (
     <div className="ant-race">
       {loadingAnts ? "loading ants..." : ""}
-      <button data-cy="load-ant-data" onClick={loadState}>Load Ants</button>
+      <button data-cy="load-ant-data" onClick={loadAntData}>Load Ants</button>
       <button data-cy="start-calculations" disabled={!antsLoaded}>Start Race</button>
       {
         antsLoaded ? (
@@ -50,7 +50,7 @@ export const AntRace = () => {
               {ants.map(ant => <li>
                 <div>{ant.name}</div>
                 <div data-cy='ant-win-chance-state'>
-                  {/* TODO: ant component */}
+                  {ant.winChanceState}
                 </div>
               </li>)}
             </ul>

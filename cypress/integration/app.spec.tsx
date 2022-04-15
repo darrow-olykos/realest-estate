@@ -3,8 +3,6 @@
 // If you're using ESLint on your project, we recommend installing the ESLint Cypress plugin instead:
 // https://github.com/cypress-io/eslint-plugin-cypress
 
-import { AntList } from "../../components/types/ant-list"
-
 /**
  * Intent: Test app behavior, try to avoid testing implementation details
  */
