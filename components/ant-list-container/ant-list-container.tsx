@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { IAnt } from '../ant/ant'
+import { Ant, IAnt, WinChanceState } from '../ant/ant'
 import { AntList } from '../ant-list/ant-list'
 
 interface Result<T> {
@@ -27,6 +27,7 @@ enum State {
 export const AntListContainer: React.VFC = () => {
     let [state, setState] = useState<State>(State.LOADING)
     let [data, setData] = useState<IAnt[]>([])
+    let [calculationsStarted, setCalculationsStarted] = useState(false);
 
     async function fetchData() {
         setState(State.LOADING)
@@ -47,10 +48,10 @@ export const AntListContainer: React.VFC = () => {
 
     return <div>
         <button data-cy="load-ant-data" onClick={fetchData}>Load Ants</button>
-        <button data-cy="start-calculations" disabled={state !== State.SUCCESS}>Start Race</button>
+        <button data-cy="start-calculations" onClick={() => setCalculationsStarted(true)} disabled={state !== State.SUCCESS}>Start Race</button>
         <ul>
             <li>{state}</li>
-            <li><AntList data={data} /></li>
+            <li><AntList data={data.map(ant => ({ ...ant, calculationsStarted }))} /></li>
         </ul>
     </div >
 }

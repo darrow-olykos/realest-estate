@@ -9,36 +9,42 @@ export interface IAnt {
     weight: number
 }
 
-interface WithWinChanceState {
-    winChanceState: WinChanceState
+export type IAntWithCalculationsStarted = IAnt & {
+    calculationsStarted: boolean
 }
 
 export enum WinChanceState {
     NOT_YET_RUN = "Not yet run",
-    CALCULATING = "Calculating",
+    CALCULATING = "In progress",
     CALCULATED = "Calculated"
 }
 
-export type AntProps = IAnt & WithWinChanceState;
+export type AntProps = {
+    data: IAntWithCalculationsStarted
+}
 
 export const Ant: React.VFC<AntProps> = (props) => {
     const [winChanceState, setWinChanceState] = useState<WinChanceState>(WinChanceState.NOT_YET_RUN)
     const [winChance, setWinChance] = useState<Percent>()
 
-    setWinChanceState(WinChanceState.CALCULATING)
-    /*generateAntWinLikelihoodCalculator()(chance => {
-        setWinChance(createPercent(chance))
-        setWinChanceState(WinChanceState.CALCULATED)
-    })*/
+    useEffect(() => {
+        if (props.data.calculationsStarted === true) {
+            setWinChanceState(WinChanceState.CALCULATING)
+            generateAntWinLikelihoodCalculator()(chance => {
+                setWinChance(createPercent(chance))
+                setWinChanceState(WinChanceState.CALCULATED)
+            })
+        }
+    }, [props.data.calculationsStarted])
 
     return (
         <div className="ant">
-            <span>{props.name}</span>
-            <span>{props.weight}</span>
-            <span>{props.color}</span>
-            <span>{props.length}</span>
+            <span>{props.data.name}</span>
+            <span>{props.data.weight}</span>
+            <span>{props.data.color}</span>
+            <span>{props.data.length}</span>
+            <span>{winChance?.value}</span>
             <span data-cy="ant-win-chance-state">{winChanceState}</span>
-            <span>{winChance}</span>
         </div>
     )
 }

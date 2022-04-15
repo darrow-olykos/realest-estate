@@ -38,6 +38,8 @@ describe('app', () => {
       cy.intercept('GET', '/api/ants', { fixture: 'ant-data.json' }).as('loadAntData')
       cy.visit('http://localhost:3000/')
 
+      cy.clock()
+
       // when data has been fetched
       cy.get(selectors.LOAD_ANT_DATA).should('be.visible').and('be.enabled')
       cy.get(selectors.LOAD_ANT_DATA).click()
@@ -46,12 +48,15 @@ describe('app', () => {
       // before starting calculations
       cy.get(selectors.START_CALCULATIONS).should('be.visible').and('be.enabled')
       cy.get(selectors.ANT_WIN_CHANCE_STATE).each(el => { expect(el).to.have.text('Not yet run') })
+      cy.wait(200)
 
       // immediately following starting, (calculations on all ants should run simultaneously is an of this behavior implementation detail)
       cy.get(selectors.START_CALCULATIONS).click()
-      cy.get(selectors.ANT_WIN_CHANCE_STATE).each(el => { expect(el).to.have.text('in progress') })
+      cy.get(selectors.ANT_WIN_CHANCE_STATE).each(el => { expect(el).to.have.text('In progress') })
 
-      cy.get(selectors.ANT_WIN_CHANCE_STATE).each(el => { expect(el).to.have.text('calculated') })
+      cy.tick(16000)
+
+      cy.get(selectors.ANT_WIN_CHANCE_STATE).each(el => { expect(el).to.have.text('Calculated') })
     })
   })
 })
