@@ -1,23 +1,21 @@
-# Next.js + Cypress
+# Next.js + Cypress + Ant Design Mobile Exemplar
+Fork this repo to start any basic React web app.
+See `package.json` for how to run and test the project.
 
-This example shows how to configure Cypress to work with Next.js.
+### Cypress for System Behavior Testing
+See the `integrations/` folder to see some behavioral tests.
+This exemplar shows how to test system behavior without coupling to the React.js framework. ( https://docs.cypress.io/guides/references/best-practices )
 
-## Deploy your own
+The goal is to keep Cypress ignorant that the web app implements anything other than vanilla JavaScript and HTML. We may continue to verify system behavior even if implementation (including chosen js frameworks) changes over time. (This also lets you reuse written tests for other web apps).
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-cypress)
+### Ant Design Mobile (antd-mobile)
+Just a UI component library I wanted to try. Previously, when I built web apps, I ran into some pains:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-cypress&project-name=with-cypress&repository-name=with-cypress)
+1) First, I would start desktop-first and then do large lifts to handle mobile use-cases.
+2) I tended to use Ant Design UI Component library. However, I could only ever override global theming if I modified build tooling to load antd styles/components, significantly increased app bundle size, and re-configuring babel and Webpack through frameworks like Nextjs was a pain.
+3) I did a lot of CSS-in-JavaScript to re-style antd components locally
 
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-cypress with-cypress-app
-# or
-yarn create next-app --example with-cypress with-cypress-app
-# or
-pnpm create next-app -- --example with-cypress with-cypress-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+I was about to move on to a UI component library for my next phase of projects, but then I came across Ant Design Mobile:
+1) Components designed for mobile, though they still look in a desktop browser.
+2) Can easily override global theming with CSS vars, and for SSR, it's trivial to configure for Next.js ( https://mobile.ant.design/guide/ssr )
+3) Can easily do local antd-mobile component styling also with CSS vars ( https://mobile.ant.design/guide/css-variables )
