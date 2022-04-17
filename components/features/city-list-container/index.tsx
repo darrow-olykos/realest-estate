@@ -1,5 +1,5 @@
 import React from 'react'
-import { createComputeContainer } from '../../containers/compute'
+import { createComputeContainer } from '../../utils/create-compute-container'
 import { CityList } from './city-list'
 import { CityProps } from './city'
 
@@ -9,15 +9,8 @@ export const CityListContainer: React.VFC = () => {
         <CityComputeContainer
             entityName="city"
             url="/api/cities"
-            render={(items) => {
-                return {
-                    component: CityList,
-                    props: {
-                        data: items
-                    }
-                }
-            }}
-            compute={async (item) => {
+            componentToRender={CityList}
+            computeForEach={async (item) => {
                 const result = await generatePriority();
                 return result;
             }}

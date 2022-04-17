@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { DotLoading } from './../feedback'
-import { Button } from './../basic'
+import React, { useState } from 'react'
+import { DotLoading } from '../feedback'
+import { Button } from '../basic'
 
-import { get } from './utils/fetch'
+import { get } from '../containers/utils/fetch'
 
 enum State {
     DEFAULT = "Default",
@@ -21,8 +21,8 @@ export function createComputeContainer<T>() {
     interface ComputeContainerProps {
         url: string,
         entityName: string,
-        render: (items: T[]) => ComponentConstructorAndArgs,
-        compute: (item: T) => Promise<number>
+        componentToRender: React.JSXElementConstructor<{ data: T[] }>,
+        computeForEach: (item: T) => Promise<number>
     }
     const ComputeContainer: React.VFC<ComputeContainerProps> = (props) => {
         let [state, setState] = useState<State>(State.DEFAULT)
@@ -62,15 +62,7 @@ export function createComputeContainer<T>() {
                     TODO: Design a friendlier way to compose calculationStarted onto the entity props 
                     A user should be able to use ComputeContainer without needing to read implementation to figure out where this property comes from.
                 */}
-                <ComponentWithCalculationsStarted {...(props.render(
-                    data.map(
-                        item => ({
-                            ...item,
-                            computeStarted: calculationsStarted,
-                            compute: props.compute
-                        })
-                    )
-                ))} />
+                <props.componentToRender data={data.map(item => ({ ...item, computeStarted: calculationsStarted, compute: props.computeForEach }))} />
             </div>
         )
     }

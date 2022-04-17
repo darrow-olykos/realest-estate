@@ -11,11 +11,7 @@ export const CityList: React.VFC<CityListProps> = (props) => {
     return (
         <List>
             {data.map(city => (
-                <City
-                    name={city.name}
-                    computeStarted={city.computeStarted}
-                    compute={city.compute}
-                />
+                <City {...city} />
             ))}
         </List>
     )
