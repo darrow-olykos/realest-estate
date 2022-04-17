@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { List, Space } from '../../../basic'
 import { generateAntWinLikelihoodCalculator } from './generate-ant-win-likelihood-calculator'
 import { createPercent, Percent } from './percent'
 
@@ -38,13 +39,12 @@ export const Ant: React.VFC<AntProps> = (props) => {
     }, [props.data.calculationsStarted])
 
     return (
-        <div className="ant">
-            <span>{props.data.name}</span>
-            <span>{props.data.weight}</span>
-            <span>{props.data.color}</span>
-            <span>{props.data.length}</span>
-            <span>{winChance?.value}</span>
-            <span data-cy="ant-win-chance-state">{winChanceState}</span>
-        </div>
+        <List.Item
+            description={props.data.color + ' ' + props.data.weight + ' ' + props.data.length}
+            extra={<Space><span>{winChance?.value}</span>
+                <span data-cy="ant-win-chance-state">{winChanceState}</span></Space>
+            }>
+            {props.data.name}
+        </List.Item>
     )
 }

@@ -1,4 +1,3 @@
-
 export type Percent = {
     value: Number
 }

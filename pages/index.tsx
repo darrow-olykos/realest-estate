@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { AntListContainer } from "../components/ant-list-container/ant-list-container"
+import { AntListContainer } from "../components/features/ant-list-container"
 
 export default function Home() {
   return (

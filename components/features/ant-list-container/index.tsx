@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import { Ant, IAnt, WinChanceState } from '../ant/ant'
-import { AntList } from '../ant-list/ant-list'
+import { Ant, IAnt, WinChanceState } from './ant/ant'
+import { AntList } from './ant-list'
+import { Button } from '../../basic'
+import { DotLoading } from '../../feedback'
 
 interface Result<T> {
     success: boolean
@@ -46,12 +48,12 @@ export const AntListContainer: React.VFC = () => {
         }
     }
 
-    return <div>
-        <button data-cy="load-ant-data" onClick={fetchData}>Load Ants</button>
-        <button data-cy="start-calculations" onClick={() => setCalculationsStarted(true)} disabled={state !== State.SUCCESS}>Start Race</button>
-        <ul>
-            <li>{state}</li>
-            <li><AntList data={data.map(ant => ({ ...ant, calculationsStarted }))} /></li>
-        </ul>
-    </div >
+    return (
+        <div>
+            <Button data-cy="load-ant-data" onClick={fetchData}>Load Ants</Button>
+            <Button data-cy="start-calculations" onClick={() => setCalculationsStarted(true)} disabled={state !== State.SUCCESS}>Start Race</Button>
+            <div>{state === State.LOADING ? <DotLoading /> : ''}</div>
+            <AntList data={data.map(ant => ({ ...ant, calculationsStarted }))} />
+        </div>
+    )
 }
