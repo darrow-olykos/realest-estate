@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { AntListContainer } from "../components/features/ant-list-container"
+import { CityListContainer } from '../components/features/city-list-container'
 
 export default function Home() {
   return (
@@ -12,7 +12,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <AntListContainer />
+        <CityListContainer />
       </main>
     </div>
   )

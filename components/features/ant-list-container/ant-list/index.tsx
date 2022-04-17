@@ -1,5 +1,5 @@
 import React from 'react'
-import { Ant, IAnt, IAntWithCalculationsStarted } from '../ant/ant' // different "ant" than ant design.
+import { Ant, IAntWithCalculationsStarted } from '../ant'
 import { List } from '../../../basic'
 
 interface AntListProps {

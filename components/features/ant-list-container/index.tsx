@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Ant, IAnt, WinChanceState } from './ant/ant'
+import { IAnt } from './ant'
 import { AntList } from './ant-list'
 import { Button } from '../../basic'
 import { DotLoading } from '../../feedback'
