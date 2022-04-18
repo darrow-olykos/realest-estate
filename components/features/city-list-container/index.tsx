@@ -8,7 +8,6 @@ export const CityListContainer: React.VFC = () => {
   return (
     <CityComputeContainer
       entityName="city"
-      overrideId="id"
       url="/api/cities"
       componentToRender={CityList}
       computeForEach={async (item) => {
