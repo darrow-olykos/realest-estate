@@ -12,18 +12,20 @@ export function createPriorityQueue<T>(): PriorityQueue<T> {
 
   return {
     insert: (item, priority) => {
-      if (data.length == 0) {                                       // if no items exist, just insert the new item
+      if (data.length == 0) {
+        // if no items exist, just insert the new item
         data.push([item, priority])
-      }
-      else {
-        let inserted = false;
-        for (let i = 0; i < data.length && inserted !== true; i++) { // for each existing item,
-          if (i == data.length - 1) {                                // if we get to the end of the data, 
-            data.push([item, priority])                              //   just insert the new item and return
+      } else {
+        let inserted = false
+        for (let i = 0; i < data.length && inserted !== true; i++) {
+          // for each existing item,
+          if (i == data.length - 1) {
+            // if we get to the end of the data,
+            data.push([item, priority]) //   just insert the new item and return
             inserted = true
-          }
-          else if (data[i][1] > priority) {                         // otherwise if an existing priority is greater than
-            data.splice(i, 0, [item, priority])                     //   the provide priority, insert before it
+          } else if (data[i][1] > priority) {
+            // otherwise if an existing priority is greater than
+            data.splice(i, 0, [item, priority]) //   the provide priority, insert before it
             inserted = true
           }
         }

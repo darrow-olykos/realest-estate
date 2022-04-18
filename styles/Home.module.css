@@ -1,22 +1,22 @@
 .app {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: #ffffff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
 }
 
 .top {
-    flex: 0;
-    border-bottom: solid 1px var(--adm-border-color);
+  flex: 0;
+  border-bottom: solid 1px var(--adm-border-color);
 }
 
 .body {
-    flex: 1;
-    display: flex;
-    justify-content: center;
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .bottom {
-    flex: 0;
-    border-top: solid 1px var(--adm-border-color);
+  flex: 0;
+  border-top: solid 1px var(--adm-border-color);
 }

@@ -76,4 +76,4 @@ describe('app', () => {
 // this export is intentional, please see:
 //   https://www.typescriptlang.org/tsconfig#isolatedModules
 //   https://stackoverflow.com/questions/56577201/why-is-isolatedmodules-error-fixed-by-any-import
-export { }
+export {}

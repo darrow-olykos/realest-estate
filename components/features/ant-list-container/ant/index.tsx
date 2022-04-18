@@ -44,7 +44,10 @@ export const Ant: React.VFC<AntProps> = (props) => {
   }, [computeStarted])
 
   return (
-    <List.Item description={<span data-cy="ant-win-chance-state">{computeState}</span>} extra={computeResult}>
+    <List.Item
+      description={<span data-cy="ant-win-chance-state">{computeState}</span>}
+      extra={computeResult}
+    >
       {props.name}
     </List.Item>
   )
