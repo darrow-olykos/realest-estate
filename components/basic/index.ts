@@ -1,1 +1,1 @@
-export { Button, List, Space } from 'antd-mobile';
+export { Button, List, Space } from 'antd-mobile'

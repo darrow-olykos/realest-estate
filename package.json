@@ -1,38 +1,38 @@
 {
-    "private": true,
-    "scripts": {
-        "disable-nextjs-telem": "cross-env NEXT_TELEMETRY_DISABLED=1",
-        "pre": "npm run disable-nextjs-telem",
-        "dev": "npm run pre && next dev",
-        "build": "npm run pre && npm run lint && npm run format && next build",
-        "lint": "npm run pre && next lint",
-        "format": "npm run pre && prettier --check --ignore-path .gitignore .",
-        "format:fix": "npm run pre && prettier --write --ignore-path .gitignore .",
-        "start": "npm run pre && next start",
-        "cypress": "npm run pre && cypress open",
-        "cypress:headless": "npm run pre && cypress run",
-        "e2e": "npm run pre && start-server-and-test dev http://localhost:3000 cypress",
-        "e2e:headless": "npm run pre && start-server-and-test dev http://localhost:3000 cypress:headless"
-    },
-    "dependencies": {
-        "antd-mobile": "^5.10.2",
-        "next": "latest",
-        "react": "17.0.2",
-        "react-dom": "17.0.2",
-        "react-table": "^7.7.0"
-    },
-    "devDependencies": {
-        "@types/node": "^17.0.23",
-        "@types/react": "17.0.2",
-        "cross-env": "^7.0.3",
-        "cypress": "8.2.0",
-        "eslint": "8.13.0",
-        "eslint-config-next": "12.1.5",
-        "eslint-config-prettier": "^8.5.0",
-        "eslint-plugin-cypress": "^2.12.1",
-        "next-transpile-modules": "^9.0.0",
-        "prettier": "^2.6.2",
-        "start-server-and-test": "1.13.1",
-        "typescript": "^4.6.3"
-    }
+  "private": true,
+  "scripts": {
+    "disable-nextjs-telem": "cross-env NEXT_TELEMETRY_DISABLED=1",
+    "pre": "npm run disable-nextjs-telem",
+    "dev": "npm run pre && next dev",
+    "build": "npm run pre && npm run lint && npm run format && next build",
+    "lint": "npm run pre && next lint",
+    "format": "npm run pre && prettier --check --ignore-path .gitignore .",
+    "format:fix": "npm run pre && prettier --write --ignore-path .gitignore .",
+    "start": "npm run pre && next start",
+    "cypress": "npm run pre && cypress open",
+    "cypress:headless": "npm run pre && cypress run",
+    "e2e": "npm run pre && start-server-and-test dev http://localhost:3000 cypress",
+    "e2e:headless": "npm run pre && start-server-and-test dev http://localhost:3000 cypress:headless"
+  },
+  "dependencies": {
+    "antd-mobile": "^5.10.2",
+    "next": "latest",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-table": "^7.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.23",
+    "@types/react": "17.0.2",
+    "cross-env": "^7.0.3",
+    "cypress": "8.2.0",
+    "eslint": "8.13.0",
+    "eslint-config-next": "12.1.5",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "next-transpile-modules": "^9.0.0",
+    "prettier": "^2.6.2",
+    "start-server-and-test": "1.13.1",
+    "typescript": "^4.6.3"
+  }
 }

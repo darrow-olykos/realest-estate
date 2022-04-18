@@ -4,15 +4,15 @@ import { CityList } from './city-list'
 import { CityProps } from './city'
 
 export const CityListContainer: React.VFC = () => {
-    let CityComputeContainer = createComputeContainer<CityProps>();
+    let CityComputeContainer = createComputeContainer<CityProps>()
     return (
         <CityComputeContainer
             entityName="city"
             url="/api/cities"
             componentToRender={CityList}
             computeForEach={async (item) => {
-                const result = await generatePriority();
-                return result;
+                const result = await generatePriority()
+                return result
             }}
         />
     )
@@ -20,8 +20,8 @@ export const CityListContainer: React.VFC = () => {
 
 function generatePriority(): Promise<number> {
     return new Promise((resolve, reject) => {
-        const delay = 5000 + Math.random() * 5000;
-        const priority = Math.random();
+        const delay = 5000 + Math.random() * 5000
+        const priority = Math.random() * 100
         setTimeout(() => {
             resolve(priority)
         }, delay)

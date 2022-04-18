@@ -1,16 +1,22 @@
-[{
-        "name": "City A"
-    },
-    {
-        "name": "City B"
-    },
-    {
-        "name": "City C"
-    },
-    {
-        "name": "City D"
-    },
-    {
-        "name": "City E"
-    }
+[
+  {
+    "id": "1",
+    "name": "City A"
+  },
+  {
+    "id": "2",
+    "name": "City B"
+  },
+  {
+    "id": "3",
+    "name": "City C"
+  },
+  {
+    "id": "4",
+    "name": "City D"
+  },
+  {
+    "id": "5",
+    "name": "City E"
+  }
 ]
