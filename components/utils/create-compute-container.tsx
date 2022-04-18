@@ -11,6 +11,7 @@ enum State {
     ERROR = 'Error fetching data',
 }
 
+// TODO: Now that I'm making a sort-of utility component, see if React.useContext will help keep things cleaner here
 export function createComputeContainer<T>() {
     interface ComputeContainerProps {
         url: string
@@ -66,12 +67,17 @@ export function createComputeContainer<T>() {
                     A user should be able to use ComputeContainer without needing to read implementation to figure out where this property comes from.
                 */}
                 <props.componentToRender
-                    data={data.map((item) => ({
-                        ...item,
-                        computeStarted: calculationsStarted,
-                        compute: props.computeForEach,
-                        id: item[props.overrideId]
-                    }))}
+                    data={data.map((item) => {
+                        let dataWithComputeProps = {
+                            ...item,
+                            computeStarted: calculationsStarted,
+                            compute: props.computeForEach,
+                        }
+                        if (props.overrideId) {
+                            dataWithComputeProps['id'] = item[props.overrideId]
+                        }
+                        return dataWithComputeProps
+                    })}
                 />
             </div>
         )
