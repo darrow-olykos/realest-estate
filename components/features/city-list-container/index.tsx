@@ -20,7 +20,7 @@ export const CityListContainer: React.VFC = () => {
 
 function generatePriority(): Promise<number> {
     return new Promise((resolve, reject) => {
-        const delay = 5000 + Math.random() * 5000
+        const delay = 2000 + Math.random() * 2000
         const priority = Math.random() * 100
         setTimeout(() => {
             resolve(priority)

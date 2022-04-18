@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Flipper, Flipped } from "react-flip-toolkit";
 import { List } from '../../../basic'
 import { City, CityProps } from '../city'
 
@@ -39,11 +40,16 @@ export const CityList: React.VFC<CityListProps> = (props) => {
     }
 
     return (
-        <List>
-            {cities.map((city) => (
-                <City key={'' + city.id} {...city} emitComputeResult={handleComputeResult} />
-            ))}
-        </List>
+        <Flipper flipKey={cities.map(d => d.id).join("")}>
+            <List>
+                {cities.map((city) => (
+                    <Flipped key={city.id} flipId={city.id}>
+                        <div><City {...city} emitComputeResult={handleComputeResult} /></div>
+                    </Flipped>
+                ))}
+            </List>
+        </Flipper>
+
     )
 }
 
