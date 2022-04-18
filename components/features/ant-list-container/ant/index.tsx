@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { List, Space } from '../../../basic'
-import { generateAntWinLikelihoodCalculator } from './generate-ant-win-likelihood-calculator'
-import { createPercent, Percent } from './percent'
+import { List } from '../../../basic'
 
 export interface IAnt {
   name: String
@@ -10,49 +8,44 @@ export interface IAnt {
   weight: number
 }
 
-export type IAntWithCalculationsStarted = IAnt & {
-  calculationsStarted: boolean
+export interface AntProps {
+  id: string
+  name: String
+  length: number
+  color: string
+  weight: number
+  computeStarted: boolean
+  compute: () => Promise<number>
+  emitComputeResult: (id, result) => void
 }
 
-export enum WinChanceState {
-  NOT_YET_RUN = 'Not yet run',
-  CALCULATING = 'In progress',
-  CALCULATED = 'Calculated',
-}
-
-export type AntProps = {
-  data: IAntWithCalculationsStarted
+export enum ComputeState {
+  NOT_STARTED = 'Not Started',
+  IN_PROGRESS = 'In progress',
+  FINISHED = 'Calculated',
 }
 
 export const Ant: React.VFC<AntProps> = (props) => {
-  const [winChanceState, setWinChanceState] = useState<WinChanceState>(
-    WinChanceState.NOT_YET_RUN,
+  let { id, compute, emitComputeResult, computeStarted } = props
+  const [computeState, setComputeState] = useState<ComputeState>(
+    ComputeState.NOT_STARTED,
   )
-  const [winChance, setWinChance] = useState<Percent>()
+  const [computeResult, setComputeResult] = useState<number>()
 
   useEffect(() => {
-    if (props.data.calculationsStarted === true) {
-      setWinChanceState(WinChanceState.CALCULATING)
-      generateAntWinLikelihoodCalculator()((chance) => {
-        setWinChance(createPercent(chance))
-        setWinChanceState(WinChanceState.CALCULATED)
+    if (computeStarted === true) {
+      setComputeState(ComputeState.IN_PROGRESS)
+      compute().then((result) => {
+        setComputeState(ComputeState.FINISHED)
+        setComputeResult(result)
+        emitComputeResult(id, result)
       })
     }
-  }, [props.data.calculationsStarted])
+  }, [computeStarted])
 
   return (
-    <List.Item
-      description={
-        props.data.color + ' ' + props.data.weight + ' ' + props.data.length
-      }
-      extra={
-        <Space>
-          <span>{winChance?.value}</span>
-          <span data-cy="ant-win-chance-state">{winChanceState}</span>
-        </Space>
-      }
-    >
-      {props.data.name}
+    <List.Item description={computeState} extra={computeResult}>
+      {props.name}
     </List.Item>
   )
 }

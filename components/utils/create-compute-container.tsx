@@ -15,6 +15,7 @@ export function createComputeContainer<T>() {
     interface ComputeContainerProps {
         url: string
         entityName: string
+        overrideId: string
         componentToRender: React.JSXElementConstructor<{ data: T[] }> // TODO: Make implicit coupling to { data: T[] } explit by taking in ThingListProps instead
         computeForEach: (item: T) => Promise<number>
     }
@@ -69,6 +70,7 @@ export function createComputeContainer<T>() {
                         ...item,
                         computeStarted: calculationsStarted,
                         compute: props.computeForEach,
+                        id: item[props.overrideId]
                     }))}
                 />
             </div>

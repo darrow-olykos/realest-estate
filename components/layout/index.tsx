@@ -1,10 +1,7 @@
-import { Grid, TabBar, NavBar as AntdNavBar } from 'antd-mobile'
+import { TabBar, NavBar as AntdNavBar } from 'antd-mobile'
 import {
     AppOutline,
-    MessageOutline,
-    MessageFill,
-    UnorderedListOutline,
-    UserOutline,
+    AntOutline
 } from 'antd-mobile-icons'
 
 import { useRouter } from 'next/router';
@@ -22,9 +19,9 @@ export const Nav: React.VFC = () => {
             icon: <AppOutline />,
         },
         {
-            key: '/other',
-            title: 'Other',
-            icon: <UnorderedListOutline />,
+            key: '/ant-race',
+            title: 'Ant Race',
+            icon: <AntOutline />,
         },
     ]
 

@@ -1,10 +1,7 @@
-import Link from 'next/link'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { Card } from '../components/display'
 
 import { CityListContainer } from '../components/features/city-list-container'
-import { useState } from 'react'
 import { Nav, NavBar } from '../components/layout'
 
 export default function Home() {
