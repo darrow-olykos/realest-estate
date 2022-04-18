@@ -19,7 +19,7 @@ describe('app', () => {
       cy.intercept('GET', '/api/ants', { fixture: 'ant-data.json' }).as(
         'loadAntData',
       )
-      cy.visit('http://localhost:3000/')
+      cy.visit('http://localhost:3000/ant-race')
 
       // user taps (load data) button
       cy.get(selectors.LOAD_ANT_DATA).should('be.visible').and('be.enabled')
@@ -40,7 +40,7 @@ describe('app', () => {
       cy.intercept('GET', '/api/ants', { fixture: 'ant-data.json' }).as(
         'loadAntData',
       )
-      cy.visit('http://localhost:3000/')
+      cy.visit('http://localhost:3000/ant-race')
 
       cy.clock()
 
@@ -76,4 +76,4 @@ describe('app', () => {
 // this export is intentional, please see:
 //   https://www.typescriptlang.org/tsconfig#isolatedModules
 //   https://stackoverflow.com/questions/56577201/why-is-isolatedmodules-error-fixed-by-any-import
-export {}
+export { }

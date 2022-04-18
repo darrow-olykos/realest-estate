@@ -20,7 +20,7 @@ export interface AntProps {
 }
 
 export enum ComputeState {
-  NOT_STARTED = 'Not Started',
+  NOT_STARTED = 'Not yet run',
   IN_PROGRESS = 'In progress',
   FINISHED = 'Calculated',
 }
@@ -44,7 +44,7 @@ export const Ant: React.VFC<AntProps> = (props) => {
   }, [computeStarted])
 
   return (
-    <List.Item description={computeState} extra={computeResult}>
+    <List.Item description={<span data-cy="ant-win-chance-state">{computeState}</span>} extra={computeResult}>
       {props.name}
     </List.Item>
   )
